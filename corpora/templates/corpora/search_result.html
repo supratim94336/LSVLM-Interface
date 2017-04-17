@@ -1,0 +1,63 @@
+{% extends "corpora_base.html" %}
+{% load staticfiles %}
+{% load i18n %}
+
+{% block content %}
+
+
+<div>
+    <a class="expand" data-toggle="collapse" href="#addCorpusForm" aria-expanded="false" aria-controls="addCorpusForm">
+      <h2>Add new corpus</h2>
+        <span id="expand-arrow" class="glyphicon {% if errors %}glyphicon-chevron-down{% else %}glyphicon-chevron-right{% endif %}" aria-hidden="true"></span>
+    </a>
+
+<form action="{% url 'corpora:index' %}" method="post" class="form form-horizontal collapse
+{% if form.is_bound %}in{% endif %}" id="addCorpusForm" enctype="multipart/form-data">
+{% include 'corpora/corpus_form.html' %}
+
+    <div class="register-btn">
+        <input type="submit" value="Add Corpus" class="btn btn-primary btn-block"/>
+    </div>
+
+</form>
+</div>
+
+
+<!--To implement the search button on the form and URL to get it's action-->
+<br><br>
+<form action="{% url 'corpora:search' %}" method="get">
+    <div align = "right">
+    <input type="text" id="id_q" name="q" value="{{ query|default_if_none:"" }}" name="q" />
+    <input type="submit" value="{% trans "Search" %}"/>
+    </div>
+</form>
+
+
+{% if search_result %}
+<h2>Search Result</h2>
+{% include "corpora/_corpora_table.html" with corpora=search_result %}
+{% endif %}
+
+
+{% if search_result|length == 0 %}
+<h2>Search Result</h2>
+<p>No search result found.</p>
+{% endif %}
+
+{% endblock %}
+
+{% block javascript %}
+<script src="{% static 'js/dataTables.min.js' %}"></script>
+<script src="{% static 'js/dataTables.bootstrap.js' %}"></script>
+<script src="{% static 'js/corpora.js' %}"></script>
+{% ifequal form.path_type.value "file_upload" %}
+    <script>
+        $("#id_path_type_1").prop("checked", true);
+        updateRadio();
+    </script>
+{% endifequal %}
+{% endblock %}
+
+{% block css %}
+<link href="{% static 'css/dataTables.bootstrap.css' %}" rel="stylesheet" type="text/css" />
+{% endblock %}

@@ -1,0 +1,150 @@
+{% extends "experiments_base.html" %}
+{% load staticfiles %}
+{% load jsonify %}
+
+{% block meta %}
+{% if training %}
+<meta http-equiv="refresh" content="30">
+{% endif %}
+{% endblock %}
+
+{% block javascript %}
+<script src="{% static 'js/dataTables.min.js' %}"></script>
+<script src="{% static 'js/dataTables.bootstrap.js' %}"></script>
+<script src="{% static 'js/experiments.js' %}"></script>
+<script src="{% static 'js/experiment.js' %}"></script>
+<script src="{% static 'js/canvasjs.min.js' %}"></script>
+{% if input_text_results %}
+<script type="text/javascript">
+$(document).ready(function(){
+    experiment_chart({{ input_text_results.0|jsonify }}, {{ input_text_results.1|jsonify }}, 0);
+    searchWord({{context_start|jsonify}}, {{context_end}}, "{{searchWord}}");
+});
+$(nextPageBtn).click(function(){
+    nextPage();
+});
+$(prevPageBtn).click(function(){
+    previousPage();
+});
+</script>
+{% endif %}
+{% endblock %}
+
+{% block css %}
+<link href="{% static 'css/dataTables.bootstrap.css' %}" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block content %}
+<h2>Experiment {{experiment.id}} </h2>
+
+{% if training %}
+<p>Language Models: {{ experiment.lm_names }}</p>
+{% if experiment.corpora.all %}
+<p>Test Corpora: {{ experiment.corpora_names }}</p>
+{% endif %}
+<p>Running experiment...</p>
+
+{% else %}
+
+{% block experiment_delete %}
+<p>
+{% if experiment.user == user or user.is_superuser %}
+<a href="{% url 'experiments:purge' experiment.id %}" class="btn btn-danger" role="button" onclick="return confirm('Are you sure you want to purge Experiment {{experiment.id}}?')">Delete Experiment Record and Files</a>
+<a href="{% url 'experiments:delete' experiment.id %}" class="btn btn-danger" role="button" onclick="return confirm('Are you sure you want to delete Experiment {{experiment.id}}?')">Delete Experiment Record Only</a>
+{% endif %}
+</p>
+{% endblock %}
+
+{% block experiment_results %}
+
+<h3>Perplexity Results</h3>
+<table id="corpus_table" class="table table-hover table-bordered">
+    <thead>
+        <tr>
+	    <th>ID</th>
+        <th>Corpus</th>
+        <th>Language Model</th>
+	    <th>Total Score</th>
+	    <th>Perplexity</th>
+	    <th>In Vocabulary</th>
+	    <th>Not scored</th>
+	    <th>OOV</th>
+	    <th>Full Output</th>
+        </tr>
+    </thead>
+    
+    <tbody>
+        {% for sub_exp in exp_list %}
+        <tr class="corpus" href="{% url 'experiments:experiment' sub_exp.id %}">
+	    <td>{{ sub_exp.id }}</td>
+            <td>{{ sub_exp.corpus_name }}</td>
+            <td>{{ sub_exp.lm.name }}</td>
+            <td>{{ sub_exp.total_score }}</td>
+            <td>{{ sub_exp.perplexity }}</td>
+            <td>{{ sub_exp.in_voc }} / {{ sub_exp.total_words }}</td>
+            <td>{{ sub_exp.not_scored }}</td>
+            <td>{{ sub_exp.oov }}</td>
+            <td><a href="{% url 'experiments:results_file' sub_exp.id %}" class="btn btn-primary" role="button">Download</a></td>
+        </tr>
+    </tbody>
+    {% endfor %}
+</table>
+
+<h3>Surprisal Graph</h3>
+<button id="help" type="button" style="float: left;" class="btn btn-primary">?</button>
+<div id="helptxt"></div>
+<div id="CanvasTest"></div>
+    <canvas id="inputTextResultsChart" width="1130" height="400"></canvas>
+<div id="legend"></div>
+
+<form action="{% url 'experiments:experiment_set' exp_set_id %}" id="pageNumberForm">
+    <div align = center>
+        <input name="prevBtn" id="prevBtn" type="submit" value="<<" class="btn btn-primary" style="float: left;"/>
+        <span id="contentLocation1">Showing {{ startWordIndex.0 }}-{{ endWordIndex.0 }} out of {{ totalWords.0 }} words. </span>
+        <span> Start surprisal graph at word number</span>
+        <input title="Enter a number between 1 and the number of words in the test corpus." type="text" id="startWordIndex" name="searchNumber" value="" size="10" style="text-align:center;"/>
+        <input name="gotoPage" type="submit" id="updateGraph" value="Go" class="btn btn-primary"/>
+        <input name="nextBtn" id="nextBtn" type="submit" value=">>" class="btn btn-primary" style="float: right;"/>
+    </div>
+</form><br><br><br>
+
+<form action="{% url 'experiments:experiment_set' exp_set_id %}" method="get" id="concordanceForm">
+<div align = center>
+    <input type="text" id="searchWord" name="searchWord" value="" size="30" />
+    <input type="submit" name="searchBtn" value="Get Concordance List" class="btn btn-primary"/>
+</div></form>
+
+<br><div align = center><text id="notFoundMsg" align=center style="display:none;"><font color="red">This word does not exist in the test corpus.</font></text></div>
+
+<canvas id="WordStat" width="900" height="0"></canvas>
+
+<div title="Click to center the sursprisal graph at word location." id="concordanceBlock" >
+    <h3>Concordances</h3>
+    <table id="concordance" class="table table-hover table-bordered">
+        <thead>
+            <tr>
+                <th id="tableHeader">Name</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for result_num in search_text_results %}
+        <tr class="corpus" href="{% url 'experiments:concordance_click' result_num %}" style="display:none;">
+	        <td>{{ result_num }}</td>
+        </tr>
+    </tbody>
+    {% endfor %}
+    </table>
+    <span id="tablePage" style.display = 'block'>Showing page # </span>
+    <span id="totalPage" style="display:none;"></span>
+    <span id="currentPage" style="display:none;"></span>
+    <input type="submit" id="prevPageBtn" value="Previous Page" class="btn btn-secondary" disabled="true"/>
+    <input type="submit" id="nextPageBtn" value="Next Page" class="btn btn-secondary" disabled="true"/>
+</table>
+</div>
+<br>
+<br>
+
+{% endblock %}
+
+{% endif %}
+{% endblock %}

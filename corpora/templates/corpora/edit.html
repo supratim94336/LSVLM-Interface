@@ -1,0 +1,21 @@
+{% extends "corpora_base.html" %}
+{% load staticfiles %}
+{% load corpora_tags %}
+
+{% block content %}
+
+<form action="{% url 'corpora:edit' corpus.id %}" method="post" class="form form-horizontal">
+<div class="form-wrapper">
+{% include 'corpora/corpus_form.html' %}
+
+    <div class="register-btn">
+        <input type="submit" value="Save Corpus" class="btn btn-primary btn-block"/>
+    </div>
+</div>
+</form>
+
+{% endblock %}
+
+{% block javascript %}
+ <script src="{% static 'js/corpora.js' %}"></script>
+{% endblock %}

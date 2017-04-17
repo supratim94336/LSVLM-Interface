@@ -1,0 +1,80 @@
+{% extends "lm_base.html" %}
+{% load staticfiles %}
+{% load jsonify %}
+
+{% block css %}
+<link href="{% static 'css/new_lm.css' %}" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block javascript %}
+<script src="{% static 'js/new_lm.js' %}"></script>
+{% if lm %}
+<script src="{% static 'js/edit_lm.js' %}"></script>
+<script>
+$(document).ready(function(){
+    data = {{lm.lmdata.0|jsonify}}
+    data['default_corpus'] = {{lm.default_corpus}}
+    loadLM(data);
+});
+</script>
+{% endif %}
+{% endblock %}
+
+{% block content %}
+<h2>Create new Language Model</h2>
+<form action="{{ save_url }}" method="post" class="form form-horizontal" id="addLMForm">
+<div class="form-wrapper">
+
+
+    {% csrf_token %}
+    
+    
+    <div class="form-group">
+        <label for="name" class="col-sm-3 control-label">Name</label>
+        <div class="col-sm-9">
+            <input type="text" id="name" class="form-control" placeholder="Name" name="name" required
+            value="{{ lm.name }}">
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <label for="description" class="col-sm-3 control-label">Description</label>
+        <div class="col-sm-9">
+            <textarea id="description" name="description" class="form-control" name="description">{{ lm.description }}</textarea>
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <label for="description" class="col-sm-3 control-label">Default Corpus</label>
+        <div class="col-sm-9">
+            <select id="default-corpus" name="default_corpus" class="form-control corpus">
+                <option value="0">------------</option>
+                {% for corpus in corpora %}
+                    <option value="{{ corpus.id }}">{{ corpus.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+    <input type="hidden" name="lm_json" id="lm_json" />
+    <input class="btn btn-primary" type="submit" value="{{ save_text }}" {% if editing %}
+      onclick="return confirm('Are you sure you want to save changes to {{lm.name}}? It will need to be retrained.')"
+     {% endif %}/>
+</div>
+</form>
+
+{% include "lm/new_lm_template.html" %}
+
+<form class="form form-horizontal">
+<div id="lm-canvas-wrap">
+
+    
+    <div id="lm-blocks">
+        
+    </div>
+    
+        <canvas id="lm-canvas"></canvas>
+    
+</div>
+
+
+{% endblock %}

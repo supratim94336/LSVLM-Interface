@@ -1,0 +1,24 @@
+<table id="corpus_table" class="table table-hover table-bordered searchable-table">
+    <thead>
+        <tr>
+            <th>Experiment #</th>
+            <th>Created On</th>
+            <th>Corpora</th>
+            <th>Language Models</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    
+    <tbody>
+    {% for experiment in expsets %}
+        <tr class="corpus" href="{% url 'experiments:experiment_set' experiment.id %}">
+            <td>{{ experiment.id }}</td>
+            <td>{{ experiment.date_run|date:'Y-m-d' }}</td>
+            <td>{{ experiment.corpora_names }}</td>
+            <td>{{ experiment.lm_names }}</td>
+            <td>{{ experiment.status_text }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+
+</table>

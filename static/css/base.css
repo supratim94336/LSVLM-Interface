@@ -1,0 +1,143 @@
+body {
+  padding-top: 50px;
+}
+
+/* navbar */
+.navbar-blue {
+    background-color: #3071a9;
+    border-color: #285e8e;
+    color: #fff;
+}
+/* title */
+.navbar-blue .navbar-brand {
+    color: #ffffff;
+}
+.navbar-blue .navbar-brand:hover,
+.navbar-blue .navbar-brand:focus {
+    color: #ccc;
+}
+/* link */
+.navbar-blue .navbar-nav > li > a {
+    color: #ffffff;
+}
+.navbar-blue .navbar-nav > li > a:hover,
+.navbar-blue .navbar-nav > li > a:focus {
+    color: #333;
+}
+.navbar-blue .navbar-nav > .active > a, 
+.navbar-blue .navbar-nav > .active > a:hover, 
+.navbar-blue .navbar-nav > .active > a:focus {
+    color: #ccc;
+    background-color: #285e8e;
+}
+.navbar-blue .navbar-nav > .open > a, 
+.navbar-blue .navbar-nav > .open > a:hover, 
+.navbar-blue .navbar-nav > .open > a:focus {
+    color: #ccc;
+    background-color: #D5D5D5;
+}
+
+.navbar-blue .navbar-nav > .dropdown > a .caret {
+    border-top-color: #777;
+    border-bottom-color: #777;
+}
+
+
+
+.form-wrapper {
+    width: 800px;
+    margin: 0 auto;
+    padding: 35px;
+    padding-top: 15px;
+    background-color: #EEE;
+    margin-top:50px;
+    border: 1px solid;
+    border-color: #ddd;
+}
+
+.form-register-heading
+ {
+  margin-bottom: 20px;
+}
+
+.form .checkbox {
+  font-weight: normal;
+}
+.form input.form-control {
+  position: relative;
+  height: auto;
+  padding: 8px;
+  font-size: 16px;
+}
+.form .form-control:focus {
+  z-index: 2;
+}
+.form .register-btn {
+    width: 360px;
+    margin: 0px auto;
+    padding-top:10px;
+}
+
+a.expand:link, a.expand:visited, a.expand:hover, a.expand:active {
+    color:#333;
+    text-decoration:none;
+}
+.expand h2{
+    display:inline-block;
+}
+
+.error {
+    display:none;
+}
+
+.form-error .error {
+    display:inline;
+    color:#FF0000;
+}
+
+.form-error input, .form-error select, .form-error textarea {
+    border-color: #FF0000;
+}
+
+.form-error .error ul {
+    padding: 0;
+    list-style-type: none;
+}
+
+.sample_text {
+    margin-left: 100px;
+}
+
+.corpus tr td:first-child {
+    font-weight:bold;
+    width: 200px;
+    background-color: #f5f5f5;
+    text-align: right;
+    padding-right: 15px;
+}
+
+.row.main-page-rows .col-md-3 {
+    border: 1px solid #ddd;
+    background-color: #EEE;
+    margin: 10px 30px;
+    height: 200px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.row.main-page-rows h4 {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    margin-top: 16px;
+    margin-bottom: 20px;
+}
+
+.row.main-page-rows ul li {
+    margin-top:10px;
+}
+
+
+.row.main-page-rows a {
+    color: #333333;
+}

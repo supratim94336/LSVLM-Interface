@@ -1,0 +1,80 @@
+{% extends "corpora_base.html" %}
+{% load staticfiles %}
+
+{% block css %}
+<link href="{% static 'css/corpora.css' %}" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block content %}
+<h2>View Corpus</h2>
+
+{% if corpus.user == user %}
+<p><a href="{% url 'corpora:edit' corpus.id %}" class="btn btn-primary" role="button">Edit Corpus</a> 
+<a href="{% url 'corpora:purge' corpus.id %}" class="btn btn-danger" role="button" onclick="return confirm('Are you sure you want to purge {{corpus.name}}?')">Delete Corpus Record and Files</a>
+<a href="{% url 'corpora:delete' corpus.id %}" class="btn btn-danger" role="button" onclick="return confirm('Are you sure you want to delete {{corpus.name}}?')">Delete Corpus Record Only</a></p>
+{% endif %}
+
+<table class="table table-bordered corpus">
+    <tr>
+        <td>Name</td>
+        <td>{{ corpus.name }}</td>
+    </tr>
+    <tr>
+        <td>Label</td>
+        <td>{{ corpus.label|linebreaksbr }}</td> <!--To display the labels of the corpora-->
+    </tr>
+    <tr>
+        <td>Language</td>
+        <td>{{ corpus.lang.name }}</td>
+    </tr>
+    <tr>
+        <td>Size</td>
+        <td>{{ corpus_size|linebreaksbr }}</td>  <!--To display size of the corpora -->
+    </tr>
+    <tr>
+        <td>Count</td>
+        <td>{{ corpus_wc|linebreaksbr }}</td> <!-- To display count of the words of the corpora -->
+    </tr>
+    <tr>
+        <td>Uploaded By</td>
+        <td>{{ corpus.user.first_name }} {{ corpus.user.last_name }}</td>
+    </tr>
+    <tr>
+        <td>Uploaded on</td>
+        <td>{{ corpus.date_added }}</td>
+    </tr>
+    <tr>
+        <td>File location</td>
+        <td>{{ corpus.file_path }}</td>
+    </tr>
+    <tr>
+        <td>Sample Text</td>
+        <td>{{ sample_text|linebreaksbr }}</td>
+    </tr>
+    <tr>
+        <td>Metadata URL</td>
+        {% if corpus.metadata_url %}
+        <td><a href="{{ corpus.metadata_url }}">{{ corpus.metadata_url }}</a></td>
+        {% else %}
+        <td />
+        {% endif %}
+    </tr>
+    <tr>
+        <td>Description</td>
+        <td>{{ corpus.description|linebreaksbr }}</td>
+    </tr>
+    <tr>
+        <td>Processing Steps</td>
+        <td>{{ corpus.process_steps|linebreaksbr }}</td>
+    </tr>
+</table>
+
+{% if corpus.countfile_set.all %}
+    <h3>Download count files</h3>
+    <p>
+    {% for countfile in corpus.countfile_set.all %}
+        <a href="{% url 'corpora:count_file' countfile.id %}" class="btn btn-primary" role="button">{{ countfile.m }}</a>
+    {% endfor %}
+    </p>
+{% endif %}
+{% endblock %}

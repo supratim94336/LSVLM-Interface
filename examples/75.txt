@@ -1,0 +1,9 @@
+I ***OOV***
+want -3.48383
+to -0.20222
+see -1.40149
+an -2.5682
+ugly ***OOV***
+error -4.79283
+again -3.91375
+Total Score: 37.676 Perplexity 533.401 ; Total number of words 8 ; InVoc 6 ; Not Scored 0; OOV 2 (25.0%)

@@ -1,0 +1,11 @@
+i -2.84735
+want -2.04798
+to -0.354905
+demonstrate -4.09593
+the -1.61036
+new -1.87547
+system -2.71665
+on -2.07774
+december -5.02185
+4 ***OOV***
+Total Score: 52.149 Perplexity 328.450 ; Total number of words 10 ; InVoc 9 ; Not Scored 0; OOV 1 (10.0%)

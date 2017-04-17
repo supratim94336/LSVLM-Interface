@@ -1,0 +1,6 @@
+Init took 0.050182 secs
+ich -5.63075
+glaube ***OOV***
+dass ***OOV***
+Total Score: 5.631 Perplexity 427316.000 ; Total number of words 3 ; InVoc 1 ; Not Scored 0; OOV 2 (66.7%)
+Run took 3.5e-05 secs

@@ -1,0 +1,62 @@
+admin@lm:~$ cd lsvlminterface/
+admin@lm:~/lsvlminterface$ python manage.py shell
+Python 2.7.3 (default, Mar 13 2014, 11:03:55) 
+[GCC 4.7.2] on linux2
+Type "help", "copyright", "credits" or "license" for more information.
+(InteractiveConsole)
+>>> from experiments.models import Experiment, ExperimentSet
+>>> Experiment.objects.all()
+[<Experiment: Experiment object>, <Experiment: Experiment object>, <Experiment: Experiment object>, <Experiment: Experiment object>, <Experiment: Experiment object>, <Experiment: Experiment object>, <Experiment: Experiment object>, <Experiment: Experiment object>, <Experiment: Experiment object>, <Experiment: Experiment object>, <Experiment: Experiment object>, <Experiment: Experiment object>, <Experiment: Experiment object>, <Experiment: Experiment object>, <Experiment: Experiment object>, <Experiment: Experiment object>, <Experiment: Experiment object>, <Experiment: Experiment object>, <Experiment: Experiment object>, <Experiment: Experiment object>, '...(remaining elements truncated)...']
+>>> Experiment.objects.filter(status=1)
+[<Experiment: Experiment object>, <Experiment: Experiment object>, <Experiment: Experiment object>, <Experiment: Experiment object>, <Experiment: Experiment object>, <Experiment: Experiment object>, <Experiment: Experiment object>, <Experiment: Experiment object>, <Experiment: Experiment object>]
+>>> Experiment.objects.filter(status=1).first()
+<Experiment: Experiment object>
+>>> e = _
+>>> e.id
+48
+>>> e.status = Experiment.FINISHED
+>>> e.save()
+>>> e.experiment_set
+<ExperimentSet: ExperimentSet object>
+>>> e.experiment_set.id
+8
+>>> filter(lambda es: not es.finished(), ExperimentSet.objects.all())
+[<ExperimentSet: ExperimentSet object>, <ExperimentSet: ExperimentSet object>, <ExperimentSet: ExperimentSet object>, <ExperimentSet: ExperimentSet object>, <ExperimentSet: ExperimentSet object>, <ExperimentSet: ExperimentSet object>, <ExperimentSet: ExperimentSet object>]
+>>> sets = _
+>>> sets[0].id
+12
+>>> sets[1].id
+17
+>>> sets[1].experiment_set
+<django.db.models.fields.related.RelatedManager object at 0x2b66910>
+>>> sets[1].experiment_set.all()
+[<Experiment: Experiment object>]
+>>> sets[1].experiment_set.first().status
+1
+>>> sets[1].experiment_set.first().status = Experiment.FINISHED
+>>> sets[1].experiment_set.first().status
+1
+>>> Experiment.FINISHED
+2
+>>> sets[1].experiment_set.first().id
+62
+>>> Experiment.objects.get(id=62)
+<Experiment: Experiment object>
+>>> Experiment.objects.get(id=62).status = Experiment.FINISHED
+>>> Experiment.objects.get(id=62).status
+1
+>>> e = Experiment.objects.get(id=62)
+>>> e.status = 2
+>>> e.status
+2
+>>> e.save()
+>>> Experiment.objects.get(id=62).status
+2
+>>> sets[3].id
+19
+>>> sets[2].id
+18
+>>> sets[2].experiment_set.all()
+[<Experiment: Experiment object>]
+>>> sets[2].experiment_set.first().delete()
+>>> sets[2].delete()

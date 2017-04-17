@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block css %}
+<link href="{% static 'css/register.css' %}" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block navbar %}
+{% endblock %}
+
+
+{% block content %}
+<div class="form-wrapper">
+    <form class="form form-horizontal" action="{% url 'new_user' %}" method="post">
+        {% csrf_token %}
+        <h2 class="form-register-heading">Register for a new account</h3>
+          
+        <div class="form-group {% if "first_name" in errors %}form-error{% endif %}">
+            <label for="inputFirstName" class="col-sm-3 control-label
+                {% if "first_name" in errors %}error{% endif %}">First Name</label>
+            <div class="col-sm-9">
+                <input type="text" id="inputFirstName" class="form-control" placeholder="First Name" name="first_name" required
+                value="{{ first_name }}">
+                <span class="error"> {{ errors.first_name }}</span>
+            </div>
+        </div>
+        
+        <div class="form-group {% if "last_name" in errors %}form-error{% endif %}">
+            <label for="inputLastName" class="col-sm-3 control-label">Last Name</label>
+            <div class="col-sm-9">
+                <input type="text" id="inputLastName" class="form-control" placeholder="Last Name" name="last_name" required
+                value="{{ last_name }}">
+                <span class="error"> {{ errors.last_name }}</span>
+            </div>
+        </div>
+            
+        <div class="form-group {% if "email" in errors %}form-error{% endif %}">
+            <label for="inputEmail" class="col-sm-3 control-label">Email address</label>
+            <div class="col-sm-9">
+                <input type="email" id="inputEmail" class="form-control" placeholder="Email address" name="email"
+                value="{{ email }}" required>
+                <span class="error"> {{ errors.email }}</span>
+            </div>
+        </div>
+              
+        <div class="form-group {% if "password1" in errors or "password2" in errors %}form-error{% endif %}">
+            <label for="inputPassword" class="col-sm-3 control-label">Password</label>
+            <div class="col-sm-9">
+                <input type="password" id="inputPassword" class="form-control" placeholder="Password" name="password1" required>
+                <span class="error"> {{ errors.password1 }}</span>
+            </div>
+        </div>
+        
+        <div class="form-group {% if "password2" in errors %}form-error{% endif %}">
+            <label for="inputConfirmPassword" class="col-sm-3 control-label">Confirm password</label>
+            <div class="col-sm-9">
+                <input type="password" id="inputConfirmPassword" class="form-control" placeholder="Confirm password" name="password2" required>
+                <span class="error"> {{ errors.password2 }}</span>
+            </div>
+        </div>
+        <div class="register-btn">
+            <button class="btn btn-primary btn-block" type="submit">Register</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends "lm_base.html" %}
+{% load staticfiles %}
+
+{% block content %}
+
+<h2>Language Models</h2>
+
+<div id="index-links">
+    <a class="btn btn-primary btn-lg" href="{% url 'lm:new' %}" role="button">Create New Language Model</a>
+</div>
+
+{% if my_lms %}
+<h2>My Language Models</h2>
+{% include "lm/_lm_table.html" with lms=my_lms %}
+{% endif %}
+
+{% if other_lms %}
+<h2>Other's Language Models</h2>
+{% include "lm/_lm_table.html" with lms=other_lms %}
+{% endif %}
+
+{% if my_lms|length == 0 and other_lms|length == 0 %}
+<p>No language models have been created.</p>
+{% endif %}
+
+{% endblock %}
+
+{% block javascript %}
+<script src="{% static 'js/dataTables.min.js' %}"></script>
+<script src="{% static 'js/dataTables.bootstrap.js' %}"></script>
+<script src="{% static 'js/lms.js' %}"></script>
+{% endblock %}
+
+{% block css %}
+<link href="{% static 'css/dataTables.bootstrap.css' %}" rel="stylesheet" type="text/css" />
+{% endblock %}

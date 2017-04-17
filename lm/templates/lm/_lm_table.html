@@ -1,0 +1,30 @@
+<table id="corpus_table" class="table table-hover table-bordered searchable-table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Created By</th>
+            <th>Created On</th>
+            <th>Trained On</th>
+        </tr>
+    </thead>
+    
+    <tbody>
+    {% for lm in lms %}
+        <tr class="corpus" href="{% url 'lm:lm' lm.id %}">
+            <td>{{ lm.name }}</td>
+            <td>{{ lm.user.first_name }} {{ lm.user.last_name }}</td>
+            <td>{{ lm.date_added|date:'Y-m-d' }}</td>
+            <td>{% if lm.status == 2 %}
+                    {{ lm.last_trained|date:'Y-m-d' }}
+                {% elif lm.status == 3 %}
+                    Training...
+                {% elif lm.user == user %}
+                    <a class="btn btn-primary btn-lg" href="{% url 'lm:train' lm.id %}" role="button">Train now</a>
+                {% else %}
+                    Not trained
+                {% endif %}
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

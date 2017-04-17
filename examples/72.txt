@@ -1,0 +1,4 @@
+i -1.64355
+have -2.06675
+pneumonoultramicroscopicsilicovolcanoconiosis ***OOV***
+Total Score: 8.543 Perplexity 71.640 ; Total number of words 3 ; InVoc 2 ; Not Scored 0; OOV 1 (33.3%)

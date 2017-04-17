@@ -1,0 +1,24 @@
+{% load experiments_tags %}
+
+
+{% csrf_token %}
+<br/>
+Directions:  select one or more language models.  You may enter an input text OR select one or more test corpora.
+<br/>
+<br/>
+<br/>
+
+{% for field in form %}
+    {% ifnotequal field.name "source" %}
+
+    <div class="form-group{% if field.errors %} form-error{% endif %}">
+        <label for="{{ field.id_for_label }}" class="col-sm-3 control-label">{{ field.label }}</label>
+        <div class="col-sm-9">
+            {{ field|addcss:"form-control" }}
+            <span class="error">{{ field.errors }}</span>
+        </div>
+    </div>
+    
+    {% endifnotequal %}
+
+{% endfor %}

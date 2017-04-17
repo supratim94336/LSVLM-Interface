@@ -1,0 +1,19 @@
+{% load corpora_tags %}
+
+
+{% csrf_token %}
+
+{% for field in form %}
+    {% ifnotequal field.name "path_type" %}
+
+    <div class="form-group{% if field.errors %} form-error{% endif %}">
+        <label for="{{ field.id_for_label }}" class="col-sm-3 control-label">{{ field.label }}</label>
+        <div class="col-sm-9">
+            {{ field|addcss:"form-control" }}
+            <span class="error">{{ field.errors }}</span>
+        </div>
+    </div>
+    
+    {% endifnotequal %}
+
+{% endfor %}

@@ -1,0 +1,16 @@
+if -2.84086
+it -1.11944
+does -1.87728
+not -1.18743
+work -4.18086
+this -3.19328
+time -1.73094
+i -2.92142
+may -2.53169
+not -1.30103
+be -0.375031
+able -1.16782
+to -0.00676423
+fix -4.16423
+it -1.58087
+Total Score: 69.490 Perplexity 102.785 ; Total number of words 15 ; InVoc 15 ; Not Scored 0; OOV 0 (0.0%)

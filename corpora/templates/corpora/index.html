@@ -1,0 +1,75 @@
+{% extends "corpora_base.html" %}
+{% load staticfiles %}
+
+{% block content %}
+
+<div>
+    <a class="expand" data-toggle="collapse" href="#addCorpusForm" aria-expanded="false" aria-controls="addCorpusForm">
+      <h2>Add new corpus</h2>
+        <span id="expand-arrow" class="glyphicon {% if errors %}glyphicon-chevron-down{% else %}glyphicon-chevron-right{% endif %}" aria-hidden="true"></span>
+    </a>
+
+<form action="{% url 'corpora:index' %}" method="post" class="form form-horizontal collapse
+{% if form.is_bound %}in{% endif %}" id="addCorpusForm" enctype="multipart/form-data">
+{% include 'corpora/corpus_form.html' %}
+
+    <div class="register-btn">
+        <input type="submit" value="Add Corpus" class="btn btn-primary btn-block"/>
+    </div>
+
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+</form>
+
+</div>
+
+
+<!--To implement the search button on the form and URL to get it's action-->
+<p>
+<form action="{% url 'corpora:index' %}" method="get">
+    <div align = center>
+    <input type="text" id="id_q" name="q" value="{{ query|default_if_none:"" }}" name="q" size="50" />
+    <input type="submit" value="Find corpora with these labels" class="btn btn-primary"/>
+    </div>
+</form>
+</p>
+
+{% if my_corpora %}
+<h2>My Corpora</h2>
+{% include "corpora/_corpora_table.html" with corpora=my_corpora %}
+{% endif %}
+
+{% if other_corpora %}
+<h2>Other's Corpora</h2>
+{% include "corpora/_corpora_table.html" with corpora=other_corpora %}
+{% endif %}
+
+{% if my_corpora|length == 0 and other_corpora|length == 0 %}
+<p>No corpora have been uploaded.</p>
+{% endif %}
+
+{% endblock %}
+
+{% block javascript %}
+<script src="{% static 'js/dataTables.min.js' %}"></script>
+<script src="{% static 'js/dataTables.bootstrap.js' %}"></script>
+<script src="{% static 'js/corpora.js' %}"></script>
+{% ifequal form.path_type.value "file_upload" %}
+    <script>
+        $("#id_path_type_1").prop("checked", true);
+        updateRadio();
+    </script>
+{% endifequal %}
+{% endblock %}
+
+{% block css %}
+<link href="{% static 'css/dataTables.bootstrap.css' %}" rel="stylesheet" type="text/css" />
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends "corpora_base.html" %}
+{% load staticfiles %}
+{% load corpora_tags %}
+
+{% block content %}
+
+<h2>Confirm corpus upload</h2>
+
+<p class="sample_text">{{ sample|linebreaksbr }}</p>
+<p class="size">{{ size|linebreaksbr }}</p>
+<p class="wc">{{ wc|linebreaksbr }}</p>
+<p>Is this content correct?</p>
+
+<form action="{% url 'corpora:confirm' %}" method="post">
+{% csrf_token %}
+{% for field in form %}
+<input type="hidden" name="{{ field.name }}" value="{{ field.value }}"/>
+{% endfor %}
+
+<button class="btn btn-primary" type="submit" name="action" value="continue">Continue</button>
+</form>
+
+{% endblock %}

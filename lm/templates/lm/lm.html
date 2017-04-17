@@ -1,0 +1,59 @@
+{% extends "lm_base.html" %}
+{% load staticfiles %}
+
+{% if lm.status == 3 %}
+{% block meta %}
+<meta http-equiv="refresh" content="30">
+{% endblock %}
+{% endif %}
+
+{% block content %}
+<h2>View LM</h2>
+
+{% if lm.status == 3 %}
+<p>Training in progress...</p>
+{% endif %}
+
+<p>
+<a href="{% url 'lm:copy' lm.id %}" class="btn btn-primary" role="button">Copy LM</a>
+{% if lm.user == user or user.is_superuser %}
+    <a href="{% url 'lm:edit' lm.id %}" class="btn btn-primary" role="button">Edit LM</a>
+    <a href="{% url 'lm:purge' lm.id %}" class="btn btn-danger" role="button" onclick="return confirm('Are you sure you want to purge {{lm.name}}?')">Delete LM Record and Files</a>
+    <a href="{% url 'lm:delete' lm.id %}" class="btn btn-danger" role="button" onclick="return confirm('Are you sure you want to delete {{lm.name}}?')">Delete LM Record Only</a>
+{% endif %}
+</p>
+
+<table class="table table-bordered corpus">
+    <tr>
+        <td>Name</td>
+        <td>{{ lm.name }}</td>
+    </tr>
+    
+    <tr>
+        <td>Uploaded By</td>
+        <td>{{ lm.user.first_name }} {{ lm.user.last_name }}</td>
+    </tr>
+    <tr>
+        <td>Uploaded on</td>
+        <td>{{ lm.date_added }}</td>
+    </tr>
+    <tr>
+        <td>Description</td>
+        <td>{{ lm.description|linebreaksbr }}</td>
+    </tr>
+</table>
+
+
+<p><a href="{% url 'lm:lm_file' lm.id %}" class="btn btn-primary" role="button">Download .lm file</a></p>
+
+{% if lm.status == 2 %}
+{% if lm.user == user or user.is_superuser %}
+<p><a href="{% url 'lm:arpa_file' lm.id %}" class="btn btn-primary" role="button">Download .arpa file</a></p>
+{% endif %}
+{% elif lm.status == 1 %}
+{% if lm.user == user or user.is_superuser %}
+<p><a href="{% url 'lm:train' lm.id %}" class="btn btn-primary" role="button">Train LM</a></p>
+{% endif %}
+{% endif %}
+
+{% endblock %}

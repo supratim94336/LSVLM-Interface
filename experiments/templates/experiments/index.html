@@ -1,0 +1,53 @@
+{% extends "experiments_base.html" %}
+{% load staticfiles %}
+
+{% block content %}
+
+<div>
+    <a class="expand" data-toggle="collapse" href="#addExpSetForm" aria-expanded="false" aria-controls="addExpSetForm">
+      <h2>Run Experiment</h2>
+        <span id="expand-arrow" class="glyphicon {% if errors %}glyphicon-chevron-down{% else %}glyphicon-chevron-right{% endif %}" aria-hidden="true"></span>
+    </a>
+
+<form action="{% url 'experiments:index' %}" method="post" class="form form-horizontal collapse
+{% if form.is_bound %}in{% endif %}" id="addExpSetForm" enctype="multipart/form-data">
+{% include 'experiments/expset_form.html' %}
+
+    <div class="register-btn">
+        <input type="submit" value="Run" class="btn btn-primary btn-block"/>
+    </div>
+    
+</form>
+</div>
+
+{% if my_expsets %}
+<h2>My Experiments</h2>
+{% include "experiments/_expset_table.html" with expsets=my_expsets %}
+{% endif %}
+
+{% if other_expsets %}
+<h2>Other's Experiments</h2>
+{% include "experiments/_expset_table.html" with expsets=other_expsets %}
+{% endif %}
+
+{% if my_expsets|length == 0 and other_expsets|length == 0 %}
+<p>No experiments have been run.</p>
+{% endif %}
+
+{% endblock %}
+
+{% block javascript %}
+<script src="{% static 'js/dataTables.min.js' %}"></script>
+<script src="{% static 'js/dataTables.bootstrap.js' %}"></script>
+<script src="{% static 'js/experiments.js' %}"></script>
+{% ifequal form.source.value "corpus" %}
+    <script>
+        $("#id_source_0").prop("checked", true);
+        updateRadio();
+    </script>
+{% endifequal %}
+{% endblock %}
+
+{% block css %}
+<link href="{% static 'css/dataTables.bootstrap.css' %}" rel="stylesheet" type="text/css" />
+{% endblock %}

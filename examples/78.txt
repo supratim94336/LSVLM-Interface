@@ -1,0 +1,12 @@
+i -2.84735
+am -1.52935
+trying -4.36374
+to -0.0264523
+graph ***OOV***
+two -2.87507
+models -3.59623
+at -2.71617
+the -0.69742
+same -1.1456
+time -0.702387
+Total Score: 47.202 Perplexity 112.196 ; Total number of words 11 ; InVoc 10 ; Not Scored 0; OOV 1 (9.1%)

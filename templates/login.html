@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block css %}
+<link href="{% static 'css/login.css' %}" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block navbar %}
+{% endblock %}
+
+
+{% block content %}
+    <div class="signin">
+      <form class="form-signin" action="{% url 'login' %}" method="post">
+          {% csrf_token %}
+          <h2 class="form-signin-heading">Log in</h2>
+          {% if message %}
+          <p>{{ message }}</p>
+          {% else %}
+          {# <p><a href="/register">Register</a></p> #}
+          {% endif %}
+          
+          {% if error %}
+          <p class="col-sm-10"><font color = 'red'>{{ error }}</font></p>
+          {% endif %}
+          
+          
+          <label for="inputUsername" class="sr-only">Username</label>
+          <input type="username" id="inputUsername" class="form-control" placeholder="Username" required name="username" autofocus>
+          <label for="inputPassword" class="sr-only">Password</label>
+          <input type="password" id="inputPassword" class="form-control" placeholder="Password" name="password" required>
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" value="remember-me" name="remember-me"> Remember me
+            </label>
+          </div>
+          <button class="btn btn-primary btn-block" type="submit">Sign in</button>
+    </form>
+</div>
+
+
+{% endblock %}

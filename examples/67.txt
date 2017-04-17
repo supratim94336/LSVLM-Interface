@@ -1,0 +1,14 @@
+I ***OOV***
+will -2.43371
+use -3.38552
+simple -4.32183
+words -4.19001
+that -1.9973
+should -3.28892
+exist -4.52821
+even -3.06038
+in -1.69291
+a -1.62193
+small -3.41887
+file -4.26422
+Total Score: 87.968 Perplexity 1526.337 ; Total number of words 13 ; InVoc 12 ; Not Scored 0; OOV 1 (7.7%)

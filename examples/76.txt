@@ -1,0 +1,7 @@
+I ***OOV***
+want -3.48383
+to -0.20222
+reproduce ***OOV***
+the -1.24257
+error -4.59166
+Total Score: 21.921 Perplexity 239.922 ; Total number of words 6 ; InVoc 4 ; Not Scored 0; OOV 2 (33.3%)

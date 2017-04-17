@@ -1,0 +1,119 @@
+.lm-block {
+    width: 450px;
+    position: absolute;
+    z-index:2;
+}
+#lm-canvas-wrap canvas {
+    position: absolute;
+    top:0;
+    left:0;
+    z-index:2000;
+    pointer-events: none;
+}
+.delete {
+    float: right;
+    color: #ffffff;
+    cursor: pointer;
+}
+
+.add-lm {
+    margin-left: 50px;
+    background-color:#cccccc;
+    padding: 7px;
+    border-radius: 20px;
+    border: 1px solid #aaaaaa;
+    cursor: pointer;
+    width: 50px;
+    text-align: center;
+    align-content: center;
+}
+
+.add-lm.glyphicon-remove {
+    background-color: #f2dede;
+    border-color: #ebccd1;
+    color: #a94442;
+}
+
+.lm-helper {
+    font-size: 15px;
+    position: relative;
+    display: inline-block;
+    background-color: #428bca;
+    padding: 10px;
+    color: #ffffff;
+    width: 100px;
+    text-align: center;
+    border-radius: 4px;
+}
+
+.lm-helper.snapped {
+    visibility: hidden;
+}
+
+.panel-heading a.expand:link, .panel-heading a.expand:visited, .panel-heading a.expand:hover, .panel-heading a.expand:active {
+    color:white;
+}
+
+input.int, input.float {
+    width: 100px;
+}
+
+.inline {
+  display: inline;
+  margin-left: 40px;
+}
+
+.lm-block .panel-body {
+    padding: 0px;
+    background-color: #eeeeee;
+}
+
+.lm-block .panel-body .lm-selector {
+    background-color: #ffffff;
+    padding: 15px;
+    margin: 0px;
+}
+
+.lm-fields {
+    background-color: #ffffff;
+}
+.required-fields {
+    padding: 0px 15px;
+}
+
+.lm-fields .optional {
+    width: 100%;
+    background-color: #eeeeee;
+    padding: 15px;
+    border-top: 1px solid #cccccc;
+}
+.optional .expand {
+    font-size: 15px;
+    padding: 0px 15px;
+    font-weight: bold;
+}
+.optional-fields {
+    margin-top: 10px;
+}
+
+#lm-blocks {
+    margin-top: 40px;
+}
+
+.lm-block-snappable {
+    display: block;
+    position: absolute;
+    height: 100%;
+    width: 1px;
+    left: 150px;
+}
+
+.tooltip {
+	position: fixed;
+	z-index:8000;
+}
+
+.tooltip-inner {
+    width: 200px;
+    z-index:9000;
+}
